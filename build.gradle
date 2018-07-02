@@ -1,0 +1,59 @@
+buildscript {
+    ext {
+        springBootVersion = '2.0.3.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.example'
+// version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 8
+mainClassName = 'com.example.dockersecurity.DockerSecurityApplication'
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    enabled = true
+}
+
+dependencies {
+
+
+    compile('org.springframework.boot:spring-boot-starter-security')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.0'
+    compile "com.auth0:auth0:1.5.0"
+    compile "com.auth0:java-jwt:3.3.0"
+
+    compile 'javax.xml.bind:jaxb-api:2.3.0'
+
+    compileOnly "org.projectlombok:lombok"
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile('org.springframework.security:spring-security-test')
+}
+
+
+task getDependencies {
+    doLast {
+        configurations.getAsMap().each { name, config ->
+            println "Retrieving dependencies for $name"
+            try {
+                config.files
+            } catch (e) {
+                project.logger.info e.message // some cannot be resolved, silentlyish skip them
+            }
+        }
+    }
+}
