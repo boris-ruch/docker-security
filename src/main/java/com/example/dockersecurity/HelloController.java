@@ -12,7 +12,7 @@ public class HelloController {
     private int counter;
 
     @GetMapping("/hello")
-    public ResponseEntity<String> hello(){
-        return ResponseEntity.ok().body("Hello "+ ++counter);
+    public ResponseEntity<String> hello() {
+        return ResponseEntity.ok().body("Hello " + ++counter);
     }
 }

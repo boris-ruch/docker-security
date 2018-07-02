@@ -2,7 +2,7 @@ package com.example.dockersecurity.model;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
-public class JwtAuthenticationToken extends UsernamePasswordAuthenticationToken{
+public class JwtAuthenticationToken extends UsernamePasswordAuthenticationToken {
 
     private String token;
 

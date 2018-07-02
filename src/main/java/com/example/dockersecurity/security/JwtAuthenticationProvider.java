@@ -12,8 +12,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
-import java.io.UnsupportedEncodingException;
-
 import static com.example.dockersecurity.security.JwtGenerator.SERVICE_NAME;
 
 @Component
@@ -29,16 +27,16 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
     }
 
     @Override
-    protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) throws AuthenticationException {
+    protected UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken usernamePwdAuthToken) {
 
-        JwtAuthenticationToken jwtAuthenticationToken = (JwtAuthenticationToken) usernamePasswordAuthenticationToken;
-        String token = jwtAuthenticationToken.getToken();
+        var jwtAuthenticationToken = (JwtAuthenticationToken) usernamePwdAuthToken;
+        var token = jwtAuthenticationToken.getToken();
 
         try {
-         validator.validate(token);
+            validator.validate(token);
         } catch (Exception e) {
             log.error("validation error ", e);
-         throw new AuthenticationServiceException("Validation failed");
+            throw new AuthenticationServiceException("Validation failed");
         }
         return new JwtUserDetails(SERVICE_NAME, 0, token);
     }

@@ -1,5 +1,5 @@
-FROM openjdk:8-jdk-alpine as build
-RUN apk add --no-cache curl
+FROM openjdk:10.0.1-jdk-slim as buildContainer
+RUN apt-get update && apt-get install -y curl
 WORKDIR /app
 
 # Copy files necessary to run gradle wrapper
@@ -21,10 +21,10 @@ RUN mkdir build-output && \
     tar xvf build/distributions/${APP_NAME}.tar -C build-output
 ######################################################
 
-FROM openjdk:8-jre-alpine
+FROM openjdk:10.0.1-jre-slim
 ENV APP_NAME=docker-security
 
-COPY --from=build /app/build-output/${APP_NAME}/. /app
+COPY --from=buildContainer /app/build-output/${APP_NAME}/. /app
 WORKDIR /app/bin
 
 EXPOSE 8080

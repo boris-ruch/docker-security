@@ -6,9 +6,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
 
-import static com.example.dockersecurity.security.JwtGenerator.DATA_CLAIM_NAME;
-import static com.example.dockersecurity.security.JwtGenerator.SECRET;
-import static com.example.dockersecurity.security.JwtGenerator.SERVICE_NAME;
+import static com.example.dockersecurity.security.JwtGenerator.*;
 
 
 @Component

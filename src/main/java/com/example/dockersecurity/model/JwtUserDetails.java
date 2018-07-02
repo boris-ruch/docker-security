@@ -1,13 +1,16 @@
 package com.example.dockersecurity.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Collections;
+
+import static java.util.Collections.emptyList;
 
 @Getter
+@AllArgsConstructor
 public class JwtUserDetails implements UserDetails {
 
     private String userName;
@@ -23,7 +26,7 @@ public class JwtUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList();
+        return emptyList();
     }
 
     @Override
